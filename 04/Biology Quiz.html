@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/user/Downloads/index_hoXr9Fk%20(1).htm -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology Quiz</title>
+    <style>
+        :root {
+            /* Цветовая палитра: Биология / Наука */
+            --color-primary: #1b4d3e;          /* Глубокий хвойно-зеленый */
+            --color-primary-hover: #13392e;    /* Затемнение для активных состояний */
+            --color-accent: #2d6a4f;           /* Изумрудный акцентный */
+            --color-accent-light: #d8f3dc;     /* Мятный пастельный фон */
+            
+            /* Обратная связь (Валидация) */
+            --color-correct-bg: #e8f5e9;       /* Светло-зеленый фон правильного ответа */
+            --color-correct-border: #2e7d32;   /* Зеленая рамка правильного ответа */
+            --color-correct-text: #1b5e20;     /* Зеленый текст */
+            --color-incorrect-bg: #ffebee;     /* Светло-красный фон ошибки */
+            --color-incorrect-border: #c62828; /* Красная рамка ошибки */
+            --color-incorrect-text: #b71c1c;   /* Красный текст ошибки */
+
+            /* Нейтральные оттенки */
+            --color-bg: #f4f7f5;               /* Светлый серо-зеленый фон всей страницы */
+            --color-surface: #ffffff;          /* Белый фон карточки */
+            --color-text-main: #1f2937;        /* Основной контрастный текст */
+            --color-text-muted: #4b5563;       /* Второстепенный текст */
+            --color-border: #e5e7eb;          /* Разделители и рамки кнопок по умолчанию */
+
+            /* Геометрия и эффекты */
+            --radius-card: 16px;
+            --radius-btn: 10px;
+            --radius-progress: 8px;
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            --transition-fast: 0.2s ease;
+            --transition-smooth: 0.35s ease;
+            
+            /* Шрифтовой стек */
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: var(--font-family);
+            background-color: var(--color-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            color: var(--color-text-main);
+            line-height: 1.5;
+        }
+
+        .quiz-app {
+            width: 100%;
+            max-width: 620px;
+            background: var(--color-surface);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .app-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .app-subtitle {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .progress-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-track {
+            height: 8px;
+            width: 100%;
+            background: var(--color-border);
+            border-radius: var(--radius-progress);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--color-accent);
+            border-radius: var(--radius-progress);
+            transition: width var(--transition-smooth);
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option-btn {
+            width: 100%;
+            min-height: 52px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-btn);
+            background: #ffffff;
+            color: var(--color-text-main);
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .option-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--color-accent);
+            background-color: var(--color-accent-light);
+            transform: translateY(-1px);
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .option-btn.correct {
+            border-color: var(--color-correct-border) !important;
+            background-color: var(--color-correct-bg) !important;
+            color: var(--color-correct-text) !important;
+            font-weight: 600;
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--color-incorrect-border) !important;
+            background-color: var(--color-incorrect-bg) !important;
+            color: var(--color-incorrect-text) !important;
+            font-weight: 600;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .option-btn:focus-visible,
+        .btn-action:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: var(--radius-btn);
+            background: var(--color-primary);
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background-color: var(--color-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-action:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            .quiz-app {
+                padding: 20px 16px;
+                border-radius: 12px;
+            }
+            .app-title {
+                font-size: 1.4rem;
+            }
+            .question-text {
+                font-size: 1.05rem;
+            }
+            .option-btn {
+                padding: 12px 14px;
+                font-size: 0.95rem;
+                min-height: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Корневой семантический контейнер приложения -->
+    <main class="quiz-app" id="app">
+        
+        <!-- СЕКЦИЯ 1: СТАРТОВЫЙ ЭКРАН -->
+        <section class="screen hidden" id="start-screen">
+            <h1 class="app-title">Biology Quiz</h1>
+            <p class="app-subtitle">
+                Проверьте свои базовые знания об устройстве живой природы: от строения клетки до экосистем. В тесте 10 вопросов.
+            </p>
+            <button type="button" class="btn-action" id="start-btn">Start Quiz</button>
+        </section>
+
+        <!-- СЕКЦИЯ 2: ЭКРАН ТЕСТИРОВАНИЯ -->
+        <section class="screen" id="quiz-screen">
+            <div class="progress-wrapper">
+                <div class="progress-meta">
+                    <span id="progress-text">Question 1 of 10</span>
+                    <span id="progress-percent">10%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" id="progress-bar-fill" style="width: 10%;"></div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <h2 class="question-text" id="question-text">Какой органоид клетки называют ее «энергетической станцией» за синтез молекул АТФ?</h2>
+                <div class="options-group" id="options-container"><button type="button" class="option-btn">Комплекс Гольджи</button><button type="button" class="option-btn">Митохондрия</button><button type="button" class="option-btn">Рибосома</button><button type="button" class="option-btn">Лизосома</button></div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ 3: ЭКРАН РЕЗУЛЬТАТОВ -->
+        <section class="screen hidden" id="result-screen">
+            <h1 class="app-title">Результаты теста</h1>
+            
+            <div class="result-box" style="text-align: center; margin-bottom: 24px;">
+                <p style="font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 6px;">Правильных ответов:</p>
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;" id="result-score-ratio">
+                    0 / 10
+                </div>
+                <div style="font-size: 1.15rem; font-weight: 600; color: var(--color-accent);" id="result-score-percent">
+                    0%
+                </div>
+            </div>
+
+            <p class="app-subtitle" id="result-feedback" style="margin-bottom: 32px;"></p>
+
+            <button type="button" class="btn-action" id="restart-btn">Try Again</button>
+        </section>
+
+    </main>
+
+    <script>
+        const QUIZ_DATA = [
+            {
+                id: 1,
+                topic: "Органоиды",
+                question: "Какой органоид клетки называют ее «энергетической станцией» за синтез молекул АТФ?",
+                options: ["Комплекс Гольджи", "Митохондрия", "Рибосома", "Лизосома"],
+                correctAnswerIndex: 1
+            },
+            {
+                id: 2,
+                topic: "ДНК",
+                question: "Как расшифровывается биологическая аббревиатура ДНК?",
+                options: [
+                    "Дезоксирибонуклеиновая кислота",
+                    "Дирибонуклеиновая кислота",
+                    "Дезоксирибонуклеарный протеин",
+                    "Дифосфонуклеиновая кислота"
+                ],
+                correctAnswerIndex: 0
+            },
+            {
+                id: 3,
+                topic: "Фотосинтез",
+                question: "Какой пигмент растений отвечает за поглощение света при фотосинтезе и придает листьям зеленый цвет?",
+                options: ["Антоциан", "Каротин", "Хлорофилл", "Ксантофилл"],
+                correctAnswerIndex: 2
+            },
+            {
+                id: 4,
+                topic: "Клеточное дыхание",
+                question: "Какой газ необходим большинству живых организмов для осуществления аэробного клеточного дыхания?",
+                options: ["Углекислый газ", "Азот", "Водород", "Кислород"],
+                correctAnswerIndex: 3
+            },
+            {
+                id: 5,
+                topic: "Анатомия человека",
+                question: "Сколько камер имеет сердце взрослого человека?",
+                options: ["Две", "Три", "Четыре", "Пять"],
+                correctAnswerIndex: 2
+            },
+            {
+                id: 6,
+                topic: "Генетика",
+                question: "Кого считают основоположником классической генетики благодаря его опытам над горохом?",
+                options: ["Чарльз Дарвин", "Грегор Мендель", "Жан-Батист Ламарк", "Томас Морган"],
+                correctAnswerIndex: 1
+            },
+            {
+                id: 7,
+                topic: "Микроорганизмы",
+                question: "Как называют организмы, клетки которых не имеют оформленного клеточного ядра?",
+                options: ["Прокариоты", "Эукариоты", "Вирусы", "Грибы"],
+                correctAnswerIndex: 0
+            },
+            {
+                id: 8,
+                topic: "Экосистемы",
+                question: "Как в экологической цепи питания называют организмы, производящие органические вещества из неорганических?",
+                options: ["Консументы", "Редуценты", "Продуценты", "Детритофаги"],
+                correctAnswerIndex: 2
+            },
+            {
+                id: 9,
+                topic: "Основы биологии",
+                question: "Какая группа биологических объектов не имеет клеточного строения и проявляет свойства живого только внутри хозяина?",
+                options: ["Простейшие", "Вирусы", "Бактерии", "Археи"],
+                correctAnswerIndex: 1
+            },
+            {
+                id: 10,
+                topic: "Кровеносная система",
+                question: "Какие форменные элементы крови человека содержат гемоглобин и транспортируют кислород?",
+                options: ["Лейкоциты", "Тромбоциты", "Эритроциты", "Моноциты"],
+                correctAnswerIndex: 2
+            }
+        ];
+
+        const state = {
+            currentQuestionIndex: 0,
+            score: 0,
+            isProcessingAnswer: false, // Мьютекс для предотвращения повторных кликов
+            stepTimeoutId: null        // Хранилище идентификатора таймера перехода
+        };
+
+        // DOM elements
+        let startScreen;
+        let quizScreen;
+        let resultScreen;
+        let startBtn;
+        let restartBtn;
+        let progressTextEl;
+        let progressPercentEl;
+        let progressBarFillEl;
+        let questionTextEl;
+        let optionsContainerEl;
+        let resultScoreRatioEl;
+        let resultScorePercentEl;
+        let resultFeedbackEl;
+
+        function showScreen(screenElement) {
+            const screens = [startScreen, quizScreen, resultScreen];
+            screens.forEach(screen => {
+                if (screen === screenElement) {
+                    screen.classList.remove('hidden');
+                } else {
+                    screen.classList.add('hidden');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const currentStep = state.currentQuestionIndex + 1;
+            const totalSteps = QUIZ_DATA.length;
+            const percentage = Math.round((currentStep / totalSteps) * 100);
+
+            progressTextEl.textContent = 'Question ' + currentStep + ' of ' + totalSteps;
+            progressPercentEl.textContent = percentage + '%';
+            progressBarFillEl.style.width = percentage + '%';
+        }
+
+        function renderCurrentQuestion() {
+            state.isProcessingAnswer = false;
+            const currentQ = QUIZ_DATA[state.currentQuestionIndex];
+            questionTextEl.textContent = currentQ.question;
+            updateProgress();
+
+            optionsContainerEl.innerHTML = '';
+            currentQ.options.forEach((optionText, optionIndex) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'option-btn';
+                button.textContent = optionText;
+                button.addEventListener('click', () => {
+                    handleOptionSelection(optionIndex, button);
+                });
+                optionsContainerEl.appendChild(button);
+            });
+        }
+
+        function handleOptionSelection(selectedIndex, clickedButton) {
+            if (state.isProcessingAnswer) return;
+            state.isProcessingAnswer = true;
+
+            const currentQ = QUIZ_DATA[state.currentQuestionIndex];
+            const isCorrect = (selectedIndex === currentQ.correctAnswerIndex);
+
+            if (isCorrect) {
+                state.score++;
+            }
+
+            const allButtons = optionsContainerEl.querySelectorAll('.option-btn');
+            allButtons.forEach(button => {
+                button.disabled = true;
+            });
+
+            if (allButtons[currentQ.correctAnswerIndex]) {
+                allButtons[currentQ.correctAnswerIndex].classList.add('correct');
+            }
+
+            if (!isCorrect) {
+                clickedButton.classList.add('incorrect');
+            }
+
+            state.stepTimeoutId = setTimeout(() => {
+                goToNextStep();
+            }, 1000);
+        }
+
+        function goToNextStep() {
+            state.currentQuestionIndex++;
+            if (state.currentQuestionIndex < QUIZ_DATA.length) {
+                renderCurrentQuestion();
+            } else {
+                renderResults();
+            }
+        }
+
+        function renderResults() {
+            showScreen(resultScreen);
+
+            const total = QUIZ_DATA.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            resultScoreRatioEl.textContent = state.score + ' / ' + total;
+            resultScorePercentEl.textContent = percentage + '%';
+
+            if (percentage >= 90) {
+                resultFeedbackEl.textContent = 'Великолепно! Вы обладаете глубокими знаниями по базовой биологии.';
+            } else if (percentage >= 70) {
+                resultFeedbackEl.textContent = 'Хороший результат! Вы уверенно ориентируетесь в большинстве биологических тем.';
+            } else if (percentage >= 50) {
+                resultFeedbackEl.textContent = 'Неплохо, но есть пробелы в некоторых разделах. Рекомендуется повторить ключевые понятия.';
+            } else {
+                resultFeedbackEl.textContent = 'Базовый уровень пока не освоен. Повторите материал школьного курса и попробуйте снова!';
+            }
+        }
+
+        function startQuiz() {
+            clearTimeout(state.stepTimeoutId);
+            state.currentQuestionIndex = 0;
+            state.score = 0;
+            state.isProcessingAnswer = false;
+            showScreen(quizScreen);
+            renderCurrentQuestion();
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+
+        function init() {
+            startScreen = document.getElementById('start-screen');
+            quizScreen = document.getElementById('quiz-screen');
+            resultScreen = document.getElementById('result-screen');
+            startBtn = document.getElementById('start-btn');
+            restartBtn = document.getElementById('restart-btn');
+            progressTextEl = document.getElementById('progress-text');
+            progressPercentEl = document.getElementById('progress-percent');
+            progressBarFillEl = document.getElementById('progress-bar-fill');
+            questionTextEl = document.getElementById('question-text');
+            optionsContainerEl = document.getElementById('options-container');
+            resultScoreRatioEl = document.getElementById('result-score-ratio');
+            resultScorePercentEl = document.getElementById('result-score-percent');
+            resultFeedbackEl = document.getElementById('result-feedback');
+
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', restartQuiz);
+
+            showScreen(startScreen);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+
+</body></html>
