@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ-панель | Управление записями учеников</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="logo">
+        <span class="logo-badge">🎓</span>
+        <span>Elena Vance <small style="display:block;font-family:var(--font-sans);font-size:0.75rem;font-weight:600;color:var(--text-olive);">Админ-панель</small></span>
+      </a>
+
+      <div class="nav-actions">
+        <span id="adminEmailBadge" class="badge badge-completed" style="padding: 8px 14px; font-size: 0.84rem;">🔒 Проверка доступа...</span>
+        <a href="/" class="btn btn-secondary">← На сайт</a>
+        <button type="button" class="btn btn-orange" id="logoutBtn">Выйти</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="adminMain" class="container" style="padding-bottom: 72px; display: none;">
+    <div class="admin-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 12px;">
+          <span class="eyebrow-dot"></span>
+          База данных • Время по Ташкенту (UTC+5)
+        </div>
+        <h1 style="font-size: clamp(1.85rem, 3vw, 2.5rem);">
+          Записи <span class="accent-word">учеников</span>
+        </h1>
+      </div>
+      <button class="btn btn-forest" id="refreshBtn">↻ Обновить список</button>
+    </div>
+
+    <div id="adminAlert" class="alert-box" role="alert"></div>
+
+    <div class="stats-cards">
+      <div class="stat-card">
+        <span>Всего записей</span>
+        <strong id="statTotal">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Ожидают подтверждения</span>
+        <strong id="statPending">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Подтверждены</span>
+        <strong id="statConfirmed">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Проведены / Завершены</span>
+        <strong id="statCompleted">0</strong>
+      </div>
+    </div>
+
+    <div class="admin-toolbar">
+      <div class="filter-group">
+        <input
+          type="text"
+          id="searchInput"
+          class="input-field"
+          placeholder="Поиск по имени или телефону (+998)..."
+        />
+        <select id="serviceFilter" class="input-field">
+          <option value="all">Все услуги</option>
+          <option value="General English">General English</option>
+          <option value="IELTS Preparation">IELTS Preparation</option>
+          <option value="Speaking Practice">Speaking Practice</option>
+          <option value="Trial Lesson">Trial Lesson</option>
+        </select>
+        <select id="statusFilter" class="input-field">
+          <option value="all">Все статусы</option>
+          <option value="pending">Ожидает</option>
+          <option value="confirmed">Подтверждена</option>
+          <option value="completed">Завершена</option>
+          <option value="cancelled">Отменена</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ученик</th>
+              <th>Контактные данные</th>
+              <th>Услуга</th>
+              <th>Дата и время (UZT)</th>
+              <th>Текущий статус</th>
+              <th>Изменить статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 32px; color: var(--text-olive);">
+                Загрузка записей...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="/admin.js"></script>
+</body>
+</html>

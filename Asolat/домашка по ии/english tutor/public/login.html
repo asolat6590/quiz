@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход для администратора | Elena Vance English Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="logo">
+        <span class="logo-badge">🎓</span>
+        <span>Elena Vance</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="/" class="btn btn-secondary">← Вернуться на главную</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="min-height: calc(100vh - 180px); display: flex; align-items: center; justify-content: center; padding-top: 48px; padding-bottom: 64px;">
+    <div style="width: 100%; max-width: 480px;">
+      <div style="text-align: center; margin-bottom: 28px;">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Защищённая зона преподавателя
+        </div>
+        <h1 style="font-size: clamp(2rem, 3.5vw, 2.65rem);">
+          Вход в <span class="accent-word">панель</span>
+        </h1>
+        <p style="color: var(--text-olive); margin-top: 10px; font-size: 0.96rem;">
+          Авторизуйтесь для управления расписанием и записями учеников
+        </p>
+      </div>
+
+      <form id="loginForm" class="booking-card" style="background: var(--bg-white); padding: 36px;" novalidate>
+        <div id="loginAlert" class="alert-box" role="alert"></div>
+
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label for="adminEmail">Email администратора *</label>
+          <input
+            type="email"
+            id="adminEmail"
+            class="input-field"
+            placeholder="Введите ваш email"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="form-group" style="margin-bottom: 24px;">
+          <label for="adminPassword">Пароль *</label>
+          <div style="position: relative;">
+            <input
+              type="password"
+              id="adminPassword"
+              class="input-field"
+              placeholder="Введите пароль"
+              autocomplete="current-password"
+              style="padding-right: 48px;"
+              required
+            />
+            <button
+              type="button"
+              id="togglePasswordBtn"
+              aria-label="Показать или скрыть пароль"
+              style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--text-olive);"
+            >
+              👁
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-forest btn-full" id="loginSubmitBtn" style="padding: 14px 24px; font-size: 1rem;">
+          Войти в админ-панель
+        </button>
+
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(20,38,29,0.08); display: flex; align-items: center; gap: 10px; font-size: 0.84rem; color: var(--text-olive);">
+          <span class="squircle-badge squircle-lime" style="width: 30px; height: 30px; font-size: 0.78rem; border-radius: 8px;">🔒</span>
+          <span>Серверная сессия (HttpOnly cookie) и криптографическое хэширование паролей (scrypt).</span>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/login.js"></script>
+</body>
+</html>
